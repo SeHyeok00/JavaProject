@@ -4,7 +4,7 @@ public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        for (;;) {
+        for (; ; ) {
             printMainMenu();
             String input = sc.nextLine();
         }
@@ -17,4 +17,10 @@ public class WaterDrinkReminder {
         System.out.println("3. 설정");
         System.out.print("선택: ");
     }
+
+    static int getChoice() {
+
+        return 0;
+    }
 }
+

@@ -6,7 +6,18 @@ public class WaterDrinkReminder {
     public static void main(String[] args) {
         for (; ; ) {
             printMainMenu();
-            String input = sc.nextLine();
+            int choice = getChoice();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("프로그램 시작");
+                case 2:
+                    System.out.println("기록 확인");
+                case 3:
+                    System.out.println("설정");
+                default:
+                    System.out.println("다시 입력하세요.");
+            }
         }
     }
 
@@ -19,8 +30,11 @@ public class WaterDrinkReminder {
     }
 
     static int getChoice() {
-
-        return 0;
+        try {
+            return Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
 

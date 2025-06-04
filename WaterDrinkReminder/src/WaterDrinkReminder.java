@@ -2,8 +2,10 @@ import java.util.*;
 
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
-    static String reminderTime = "09:00";      // 기본 알림 시간
-    static int reminderInterval = 60;          // 기본 알림 간격 (분 단위)
+    static int startHour = 9;   // 알람 시작 시간
+    static int endHour = 21;    // 알람 종료 시간
+    static int intervalMinutes = 60; // 알림 간격
+
     static List<String> logs = new ArrayList();
 
     public static void main(String[] args) {
@@ -14,10 +16,13 @@ public class WaterDrinkReminder {
             switch (choice) {
                 case 1:
                     startProgram();
+                    break;
                 case 2:
                     viewLogs();
+                    break;
                 case 3:
                     openSettings();
+                    break;
                 default:
                     System.out.println("다시 입력하세요.");
             }
@@ -62,15 +67,36 @@ public class WaterDrinkReminder {
         System.out.println("==== 설정 메뉴 ====");
         System.out.println("1. 시간 설정");
         System.out.println("2. 알림 간격 설정");
+        System.out.println("3. 뒤로 가기");
         System.out.print("선택: ");
 
         int settingChoice = getChoice();
 
         switch (settingChoice) {
-            case 1 -> System.out.println("시간을 설정합니다.");
-            case 2 -> System.out.println("알림 간격을 설정합니다. ");
-            default -> System.out.println("올바른 번호를 입력하세요.");
+            case 1:
+                setTimeRange();
+            case 2:
+                setInterval();
+            case 3:
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
         }
     }
+
+    static void setTimeRange() {
+        System.out.print("시작 시간 (0~23): ");
+        startHour = getChoice();
+        System.out.print("종료 시간 (0~23): ");
+        endHour = getChoice();
+        System.out.println("시간 설정이 완료되었습니다.");
+    }
+
+    static void setInterval() {
+        System.out.print("알림 간격 (분): ");
+        intervalMinutes = getChoice();
+        System.out.println("간격 설정이 완료되었습니다.");
+    }
 }
+
 

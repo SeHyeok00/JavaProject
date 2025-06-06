@@ -4,8 +4,8 @@ import java.util.*;
 
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
-    static int startHour = 9;   // 알람 시작 시간
-    static int endHour = 21;    // 알람 종료 시간
+    static int startHour = 1;   // 알람 시작 시간
+    static int endHour = 23;    // 알람 종료 시간
     static int intervalMinutes = 60; // 알림 간격
 
     static List<String> logs = new ArrayList();
@@ -44,14 +44,43 @@ public class WaterDrinkReminder {
         try {
             return Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
-            return 0;
+            return -1;
         }
     }
 
     static void startProgram() {
-        System.out.println("물 마시기를 시작합니다!");
-        System.out.println("설정된 시간: " );
-        System.out.println("알림 간격: " );
+        System.out.println();
+        System.out.println("=== 💦 물 마시기를 시작합니다 💦 ===");
+        System.out.println();
+        System.out.println("설정된 시간: " + startHour + "시 ~ " + endHour + "시 ");
+        System.out.println("알림 간격: " + intervalMinutes + "분");
+
+        Calendar now = Calendar.getInstance();
+        int currentHour = now.get(Calendar.HOUR_OF_DAY);
+
+        if (currentHour < startHour) {
+            System.out.println("현재 시간(" + currentHour + "시)은 알림 시간이 아닙니다.");
+            return;
+        }
+        System.out.println("🔔🔔 알림이 시작되었습니다! 중지하려면 Ctrl+C를 누르세요. 🔔🔔");
+
+        while (true) {
+            Calendar current = Calendar.getInstance();
+            int hour = current.get(Calendar.HOUR_OF_DAY);
+
+            if (hour < startHour || hour >= endHour) {
+                System.out.println("‼️ 알림 시간이 끝났습니다. 알림을 종료합니다. ‼️");
+                break;
+            }
+
+            String time = String.format("%tF %tT", current, current);
+            String message = "[" + time + "]  지금 물 한 잔 마실 시간이에요!";
+            System.out.println(message);
+            logs.add(message);
+            break;
+
+
+        }
     }
 
     static void viewLogs() {
@@ -93,17 +122,18 @@ public class WaterDrinkReminder {
     }
 
     static void setTimeRange() {
+        System.out.println();
         System.out.print("시작 시간 (0~23): ");
         int start = getChoice();
         if (start < 0 || start > 23) {
-            System.out.println("잘못된 입력입ㅂ니다. 0~23 사이의 숫자를 입력하세요.");
+            System.out.println("잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
             return;
         }
 
         System.out.print("종료 시간 (0~23): ");
         int end = getChoice();
         if (end < 0 || end > 23) {
-            System.out.println("잘못된 입력입ㅂ니다. 0~23 사이의 숫자를 입력하세요.");
+            System.out.println("잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
             return;
         }
 

@@ -5,8 +5,8 @@ import java.util.*;
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
     static int startHour = 1;   // 알람 시작 시간
-    static int endHour = 23;    // 알람 종료 시간
-    static int intervalMinutes = 60; // 알림 간격
+    static double endHour = 13;    // 알람 종료 시간
+    static double intervalMinutes = 0.1; // 알림 간격
 
     static List<String> logs = new ArrayList();
 
@@ -51,7 +51,6 @@ public class WaterDrinkReminder {
     static void startProgram() {
         System.out.println();
         System.out.println("=== 💦 물 마시기를 시작합니다 💦 ===");
-        System.out.println();
         System.out.println("설정된 시간: " + startHour + "시 ~ " + endHour + "시 ");
         System.out.println("알림 간격: " + intervalMinutes + "분");
 
@@ -62,7 +61,8 @@ public class WaterDrinkReminder {
             System.out.println("현재 시간(" + currentHour + "시)은 알림 시간이 아닙니다.");
             return;
         }
-        System.out.println("🔔🔔 알림이 시작되었습니다! 중지하려면 Ctrl+C를 누르세요. 🔔🔔");
+
+        System.out.println("🔔🔔 알림이 시작되었습니다! 🔔🔔");
 
         while (true) {
             Calendar current = Calendar.getInstance();
@@ -75,11 +75,32 @@ public class WaterDrinkReminder {
 
             String time = String.format("%tF %tT", current, current);
             String message = "[" + time + "]  지금 물 한 잔 마실 시간이에요!";
+            System.out.println();
             System.out.println(message);
-            logs.add(message);
-            break;
 
+            System.out.print("물을 마셨나요? (1: 예, 2: 아니요, 0: 중단): ");
+            int input = getChoice();
 
+            if (input == 0) {
+                System.out.println("알림을 중단합니다.");
+                break;
+            } else if (input == 1) {
+                logs.add(message + " 마셨습니다!");
+                System.out.println("기록되었습니다.");
+            } else if (input == 2) {
+                logs.add(message + " 마시지 않았습니다.");
+                System.out.println("기록되었습니다.");
+            } else {
+                System.out.println("올바른 숫자를 입력하세요.");
+                continue;
+            }
+
+            try {
+                Thread.sleep((long) (intervalMinutes * 60 * 1000)); // 분 → 밀리초
+            } catch (InterruptedException e) {
+                System.out.println(" 알림이 중단되었습니다.");
+                break;
+            }
         }
     }
 

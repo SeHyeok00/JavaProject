@@ -4,8 +4,8 @@ import java.util.*;
 
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
-    static int startHour = 1;   // 알람 시작 시간
-    static double endHour = 13;    // 알람 종료 시간
+    static int startHour = 21;   // 알람 시작 시간
+    static double endHour = 8;    // 알람 종료 시간
     static double intervalMinutes = 0.1; // 알림 간격
 
     static List<String> logs = new ArrayList();
@@ -33,7 +33,7 @@ public class WaterDrinkReminder {
     }
 
     static void printMainMenu() {
-        System.out.println("💦물 마시기 프로그램!!💦");
+        System.out.println("💦💦💦 물 마시기 프로그램!! 💦💦💦");
         System.out.println("1. 프로그램 시작");
         System.out.println("2. 기록 보기");
         System.out.println("3. 설정");
@@ -50,7 +50,7 @@ public class WaterDrinkReminder {
 
     static void startProgram() {
         System.out.println();
-        System.out.println("=== 💦 물 마시기를 시작합니다 💦 ===");
+        System.out.println("=== 💧 물 마시기를 시작합니다. 💧  ===");
         System.out.println("설정된 시간: " + startHour + "시 ~ " + endHour + "시 ");
         System.out.println("알림 간격: " + intervalMinutes + "분");
 
@@ -61,7 +61,7 @@ public class WaterDrinkReminder {
             System.out.println("현재 시간(" + currentHour + "시)은 알림 시간이 아닙니다.");
             return;
         }
-
+        System.out.println();
         System.out.println("🔔🔔 알림이 시작되었습니다! 🔔🔔");
 
         while (true) {
@@ -85,10 +85,10 @@ public class WaterDrinkReminder {
                 System.out.println("알림을 중단합니다.");
                 break;
             } else if (input == 1) {
-                logs.add(message + " 마셨습니다!");
+                logs.add(message + " 마셨습니다! ⭕ ");
                 System.out.println("기록되었습니다.");
             } else if (input == 2) {
-                logs.add(message + " 마시지 않았습니다.");
+                logs.add(message + " 마시지 않았습니다. ❌ ");
                 System.out.println("기록되었습니다.");
             } else {
                 System.out.println("올바른 숫자를 입력하세요.");
@@ -105,12 +105,14 @@ public class WaterDrinkReminder {
     }
 
     static void viewLogs() {
-        System.out.println("==== 기록 목록 ====");
+        System.out.println();
+        System.out.println("==== 📋 기록 목록 📋 ====");
         if (logs.isEmpty()) {
             System.out.println("기록이 없습니다.");
         } else {
             for (String log : logs) {
-                System.out.println(log);
+                String newLog = log.replace(" 지금 물 한 잔 마실 시간이에요!", "");
+                System.out.println(newLog);
             }
         }
     }
@@ -164,10 +166,10 @@ public class WaterDrinkReminder {
     }
 
     static void setInterval() {
-        System.out.print("알림 간격 (분): ");
+        System.out.print("알림 간격(최대90분) (분): ");
         int interval = getChoice();
-        if (interval <= 0) {
-            System.out.println("잘못된 입력입니다. 양수를 입력하세요.");
+        if (interval <= 0 || interval > 90) {
+            System.out.println("잘못된 입력입니다.");
             return;
         }
 

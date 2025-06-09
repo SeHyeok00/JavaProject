@@ -5,7 +5,7 @@ import java.util.*;
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
     static int startHour = 21;   // 알람 시작 시간
-    static double endHour = 8;    // 알람 종료 시간
+    static int endHour = 22;    // 알람 종료 시간
     static double intervalMinutes = 0.1; // 알림 간격
 
     static List<String> logs = new ArrayList();
@@ -26,7 +26,7 @@ public class WaterDrinkReminder {
                     openSettings();
                     break;
                 default:
-                    System.out.println("잘못된 입력입니다.");
+                    System.out.println("🛑 잘못된 입력입니다.");
             }
             System.out.println();
         }
@@ -35,7 +35,7 @@ public class WaterDrinkReminder {
     static void printMainMenu() {
         System.out.println("💦💦💦 물 마시기 프로그램!! 💦💦💦");
         System.out.println("1. 프로그램 시작");
-        System.out.println("2. 기록 보기");
+        System.out.println("2. 기록 목록");
         System.out.println("3. 설정");
         System.out.print("선택: ");
     }
@@ -57,12 +57,12 @@ public class WaterDrinkReminder {
         Calendar now = Calendar.getInstance();
         int currentHour = now.get(Calendar.HOUR_OF_DAY);
 
-        if (currentHour < startHour) {
-            System.out.println("현재 시간(" + currentHour + "시)은 알림 시간이 아닙니다.");
+        if (currentHour < startHour || currentHour >= endHour) {
+            System.out.println();
+            System.out.println("‼️ 현재 시간(" + currentHour + "시)은 알림 시간이 아닙니다. ‼️");
             return;
         }
-        System.out.println();
-        System.out.println("🔔🔔 알림이 시작되었습니다! 🔔🔔");
+        System.out.println("🔔 알림이 시작되었습니다! 🔔");
 
         while (true) {
             Calendar current = Calendar.getInstance();
@@ -82,14 +82,14 @@ public class WaterDrinkReminder {
             int input = getChoice();
 
             if (input == 0) {
-                System.out.println("알림을 중단합니다.");
+                System.out.println("🛑 알림을 중단합니다.");
                 break;
             } else if (input == 1) {
                 logs.add(message + " 마셨습니다! ⭕ ");
-                System.out.println("기록되었습니다.");
+                System.out.println("✅ 기록되었습니다.");
             } else if (input == 2) {
                 logs.add(message + " 마시지 않았습니다. ❌ ");
-                System.out.println("기록되었습니다.");
+                System.out.println("✅ 기록되었습니다.");
             } else {
                 System.out.println("올바른 숫자를 입력하세요.");
                 continue;
@@ -120,7 +120,7 @@ public class WaterDrinkReminder {
     static void openSettings() {
         while (true) {
             System.out.println();
-            System.out.println("==== 설정 메뉴 ====");
+            System.out.println("==== 🧭 설정 메뉴 🧭 ====");
             System.out.println("1. 시간 설정");
             System.out.println("2. 알림 간격 설정");
             System.out.println("3. 뒤로 가기");
@@ -138,7 +138,7 @@ public class WaterDrinkReminder {
                 case 3:
                     return;
                 default:
-                    System.out.println("잘못된 입력입니다.");
+                    System.out.println("🛑 잘못된 입력입니다.");
                     break;
             }
         }
@@ -149,32 +149,33 @@ public class WaterDrinkReminder {
         System.out.print("시작 시간 (0~23): ");
         int start = getChoice();
         if (start < 0 || start > 23) {
-            System.out.println("잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
+            System.out.println("🛑 잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
             return;
         }
 
         System.out.print("종료 시간 (0~23): ");
         int end = getChoice();
         if (end < 0 || end > 23) {
-            System.out.println("잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
+            System.out.println("🛑 잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
             return;
         }
 
         startHour = start;
         endHour = end;
-        System.out.println("시간 설정이 완료되었습니다.");
+        System.out.println("✅ 시간 설정이 완료되었습니다.");
     }
 
     static void setInterval() {
-        System.out.print("알림 간격(최대90분) (분): ");
+        System.out.println();
+        System.out.print("알림 간격(1~120분): ");
         int interval = getChoice();
-        if (interval <= 0 || interval > 90) {
-            System.out.println("잘못된 입력입니다.");
+        if (interval <= 0 || interval > 120) {
+            System.out.println("🛑 잘못된 입력입니다. 1~120 사이의 숫자를 입력하세요.");
             return;
         }
 
         intervalMinutes = interval;
-        System.out.println("간격 설정이 완료되었습니다.");
+        System.out.println("✅ 간격 설정이 완료되었습니다.");
     }
 }
 

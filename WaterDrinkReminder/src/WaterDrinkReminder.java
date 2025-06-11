@@ -4,9 +4,9 @@ import java.util.*;
 
 public class WaterDrinkReminder {
     static Scanner sc = new Scanner(System.in);
-    static int startHour = 21;   // 알람 시작 시간
-    static int endHour = 22;    // 알람 종료 시간
-    static double intervalMinutes = 0.1; // 알림 간격
+    static int startHour = 0;   // 알람 시작 시간
+    static int endHour = 0;    // 알람 종료 시간
+    static int intervalMinutes = 0; // 알림 간격
 
     static List<String> logs = new ArrayList();
 
@@ -74,7 +74,7 @@ public class WaterDrinkReminder {
             }
 
             String time = String.format("%tF %tT", current, current);
-            String message = "[" + time + "]  지금 물 한 잔 마실 시간이에요!";
+            String message = "[" + time + "]  💦 지금 물 한 잔 마실 시간이에요! ";
             System.out.println();
             System.out.println(message);
 
@@ -146,14 +146,14 @@ public class WaterDrinkReminder {
 
     static void setTimeRange() {
         System.out.println();
-        System.out.print("시작 시간 (0~23): ");
+        System.out.print("🕰️ 시작 시간 (0~23): ");
         int start = getChoice();
         if (start < 0 || start > 23) {
             System.out.println("🛑 잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
             return;
         }
 
-        System.out.print("종료 시간 (0~23): ");
+        System.out.print("🕰️ 종료 시간 (0~23): ");
         int end = getChoice();
         if (end < 0 || end > 23) {
             System.out.println("🛑 잘못된 입력입니다. 0~23 사이의 숫자를 입력하세요.");
@@ -167,7 +167,7 @@ public class WaterDrinkReminder {
 
     static void setInterval() {
         System.out.println();
-        System.out.print("알림 간격(1~120분): ");
+        System.out.print("⏰ 알림 간격(1~120분): ");
         int interval = getChoice();
         if (interval <= 0 || interval > 120) {
             System.out.println("🛑 잘못된 입력입니다. 1~120 사이의 숫자를 입력하세요.");
@@ -175,7 +175,7 @@ public class WaterDrinkReminder {
         }
 
         intervalMinutes = interval;
-        System.out.println("✅ 간격 설정이 완료되었습니다.");
+        System.out.println("✅ 알림 간격 설정이 완료되었습니다.");
     }
 }
 

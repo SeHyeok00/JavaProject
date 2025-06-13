@@ -52,4 +52,7 @@
 ---
 
 # 개발 순서도
+<img width="635" alt="스크린샷 2025-06-13 오후 5 44 39" src="https://github.com/user-attachments/assets/410e1e21-6801-4467-8866-a8ad03341cf5" />
+
+
 
